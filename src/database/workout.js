@@ -6,7 +6,7 @@ const getAllWorkouts = () => {
 };
 
 const getOneWorkout = (workoutId) => {
-    return DB.workouts.find(item => item.id === workoutId) || null;
+  return DB.workouts.find((item) => item.id === workoutId) || null;
 };
 
 const createNewWorkout = (newWorkout) => {
@@ -21,20 +21,37 @@ const createNewWorkout = (newWorkout) => {
   return newWorkout;
 };
 
+const updateOneWorkout = (workoutId, changes) => {
+  const index = DB.workouts.findIndex((item) => item.id === workoutId);
+  if (index === -1) {
+    return null;
+  }
+
+  const updatedWorkout = {
+    ...DB.workouts[index],
+    ...changes,
+  };
+
+  DB.workouts[index] = updatedWorkout;
+
+  saveToDatabase(DB);
+  return updatedWorkout;
+};
 
 const deleteOneWorkout = (workoutId) => {
-    const index = DB.workouts.findIndex(item => item.id === workoutId);
-    if(index === -1){
-        return null;
-    }
+  const index = DB.workouts.findIndex((item) => item.id === workoutId);
+  if (index === -1) {
+    return null;
+  }
 
-    DB.workouts.splice(index, 1);
-    saveToDatabase(DB);
+  DB.workouts.splice(index, 1);
+  saveToDatabase(DB);
 };
 
 module.exports = {
   getAllWorkouts,
   getOneWorkout,
   createNewWorkout,
+  updateOneWorkout,
   deleteOneWorkout,
 };

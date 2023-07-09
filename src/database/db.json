@@ -1,8 +1,7 @@
 {
   "workouts": [
     {
-      "id": "d8be2362-7b68-4ea4-a1f6-03f8bc4eede7",
-      "name": "Heavy DT",
+      "name": "Heavy JJ",
       "mode": "5 Rounds For Time",
       "equipment": [
         "barbell",
@@ -13,33 +12,33 @@
         "9 hang power cleans",
         "6 push jerks"
       ],
-      "createdAt": "11/20/2021, 5:39:07 PM",
-      "updatedAt": "11/20/2021, 5:39:07 PM",
       "trainerTips": [
         "Aim for unbroken push jerks",
         "The first three rounds might feel terrible, but stick to it",
         "RX Weights: 205lb/145lb"
-      ]
-    },
-    {
-      "name": "Core Buster",
-      "mode": "AMRAP 20",
-      "equipment": [
-        "rack",
-        "barbell",
-        "abmat"
-      ],
-      "exercises": [
-        "15 toes to bars",
-        "10 thrusters",
-        "30 abmat sit-ups"
-      ],
-      "trainerTips": [
-        "Split your toes to bars into two sets maximum",
-        "Go unbroken on the thrusters",
-        "Take the abmat sit-ups as a chance to normalize your breath"
       ],
       "id": "ae118cec-abf7-4305-a1cc-70b1de7637ed",
+      "createdAt": "11/20/2021, 5:39:07 PM",
+      "updatedAt": "11/20/2021, 5:39:07 PM"
+    },
+    {
+      "name": "Heavy KJ",
+      "mode": "5 Rounds For Time",
+      "equipment": [
+        "barbell",
+        "rope"
+      ],
+      "exercises": [
+        "12 deadlifts",
+        "9 hang power cleans",
+        "6 push jerks"
+      ],
+      "trainerTips": [
+        "Aim for unbroken push jerks",
+        "The first three rounds might feel terrible, but stick to it",
+        "RX Weights: 205lb/145lb"
+      ],
+      "id": "ac14cc70-e1a6-43c3-aa4b-46b9b2830f63",
       "createdAt": "7/9/2023",
       "updatedAt": "7/9/2023"
     }
