@@ -13,12 +13,21 @@ const createNewWorkout = (newWorkout) => {
   const alreadyAdded = DB.workouts.findIndex((workout) => workout.name === newWorkout.name) > -1;
 
   if (alreadyAdded) {
-    return;
+    throw {
+      status: 400,
+      message: `Workout with name '${newWorkout.name}' already exists`,
+    };
   }
-
-  DB.workouts.push(newWorkout);
-  saveToDatabase(DB);
-  return newWorkout;
+  try {
+    DB.workouts.push(newWorkout);
+    saveToDatabase(DB);
+    return newWorkout;
+  } catch (error) {
+    throw {
+      status: 500,
+      message: error?.message || error,
+    };
+  }
 };
 
 const updateOneWorkout = (workoutId, changes) => {
