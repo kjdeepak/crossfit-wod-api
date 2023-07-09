@@ -21,8 +21,20 @@ const createNewWorkout = (newWorkout) => {
   return newWorkout;
 };
 
+
+const deleteOneWorkout = (workoutId) => {
+    const index = DB.workouts.findIndex(item => item.id === workoutId);
+    if(index === -1){
+        return null;
+    }
+
+    DB.workouts.splice(index, 1);
+    saveToDatabase(DB);
+};
+
 module.exports = {
   getAllWorkouts,
   getOneWorkout,
   createNewWorkout,
+  deleteOneWorkout,
 };
