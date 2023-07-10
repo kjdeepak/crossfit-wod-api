@@ -8,12 +8,12 @@ const { saveToDatabase } = require("./utils");
  *     Workout:
  *       type: object
  *       properties:
- *         id: 
+ *         id:
  *           type: string
  *           example: 61dbae02-c147-4e28-863c-db7bd402b2d6
- *         name: 
+ *         name:
  *           type: string
- *           example: Tommy V  
+ *           example: Tommy V
  *         mode:
  *           type: string
  *           example: For Time
@@ -30,7 +30,7 @@ const { saveToDatabase } = require("./utils");
  *         createdAt:
  *           type: string
  *           example: 4/20/2022, 2:21:56 PM
- *         updatedAt: 
+ *         updatedAt:
  *           type: string
  *           example: 4/20/2022, 2:21:56 PM
  *         trainerTips:
@@ -40,7 +40,14 @@ const { saveToDatabase } = require("./utils");
  *           example: ["Split the 21 thrusters as needed", "Try to do the 9 and 6 thrusters unbroken", "RX Weights: 115lb/75lb"]
  */
 const getAllWorkouts = () => {
-  return DB.workouts;
+  try {
+    return DB.workouts;
+  } catch (error) {
+    throw {
+      status: 500,
+      message: error?.message || error,
+    };
+  }
 };
 
 const getOneWorkout = (workoutId) => {
