@@ -7,16 +7,16 @@ const getAllWorkouts = () => {
     const getAllWorkouts = Workout.getAllWorkouts();
     return getAllWorkouts;
   } catch (error) {
-    throw(error);
+    throw error;
   }
 };
 
 const getOneWorkout = (workoutId) => {
   try {
     const retrievedWorkout = Workout.getOneWorkout(workoutId);
-    return retrievedWorkout; 
+    return retrievedWorkout;
   } catch (error) {
-    throw(error);
+    throw error;
   }
 };
 
@@ -40,12 +40,16 @@ const updateOneWorkout = (workoutId, changes) => {
     const updatedWorkout = Workout.updateOneWorkout(workoutId, changes);
     return updatedWorkout;
   } catch (error) {
-    throw(error);
+    throw error;
   }
 };
 
 const deleteOneWorkout = (workoutId) => {
-  Workout.deleteOneWorkout(workoutId);
+  try {
+    Workout.deleteOneWorkout(workoutId);
+  } catch (error) {
+    throw error;
+  }
 };
 
 module.exports = {

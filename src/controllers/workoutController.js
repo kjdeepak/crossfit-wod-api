@@ -68,15 +68,20 @@ const updateOneWorkout = (req, res) => {
 };
 
 const deleteOneWorkout = (req, res) => {
-  const {
-    params: { workoutId },
-  } = req;
-  if (!workoutId) {
-    return;
-  }
+  try {
+    const {
+      params: { workoutId },
+    } = req;
+    if (!workoutId) {
+      res.status(400).send({ status: "FAILED", data: "Missing workoutId" });
+      return;
+    }
 
-  workoutService.deleteOneWorkout(workoutId);
-  res.status(204).send({ status: "OK" });
+    workoutService.deleteOneWorkout(workoutId);
+    res.status(204).send({ status: "OK" });
+  } catch (error) {
+    res.status(error?.status || 500).send({ status: "FAILED", data: error.message || error });
+  }
 };
 
 module.exports = {

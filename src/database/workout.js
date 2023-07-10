@@ -52,12 +52,12 @@ const getAllWorkouts = () => {
 
 const getOneWorkout = (workoutId) => {
   try {
-  return DB.workouts.find((item) => item.id === workoutId) || null;
+    return DB.workouts.find((item) => item.id === workoutId) || null;
   } catch (error) {
     throw {
       status: 500,
       message: error?.message || error,
-    }
+    };
   }
 };
 
@@ -91,15 +91,15 @@ const updateOneWorkout = (workoutId, changes) => {
         message: `Cannot find workout with id ${workoutId}`,
       };
     }
-  
+
     const updatedWorkout = {
       ...DB.workouts[index],
       ...changes,
-      updatedAt: new Date().toLocaleString('en-US', {timeZone: 'UTC'}),
+      updatedAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
     };
-  
+
     DB.workouts[index] = updatedWorkout;
-  
+
     saveToDatabase(DB);
     return updatedWorkout;
   } catch (error) {
@@ -111,13 +111,23 @@ const updateOneWorkout = (workoutId, changes) => {
 };
 
 const deleteOneWorkout = (workoutId) => {
-  const index = DB.workouts.findIndex((item) => item.id === workoutId);
-  if (index === -1) {
-    return null;
-  }
+  try {
+    const index = DB.workouts.findIndex((item) => item.id === workoutId);
+    if (index === -1) {
+      throw {
+        status: 400,
+        message: `Cannot find workout with ${workoutId}`,
+      };
+    }
 
-  DB.workouts.splice(index, 1);
-  saveToDatabase(DB);
+    DB.workouts.splice(index, 1);
+    saveToDatabase(DB);
+  } catch (error) {
+    throw {
+      status: error?.status || 500,
+      message: error?.message || error,
+    };
+  }
 };
 
 module.exports = {
