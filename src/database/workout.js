@@ -83,20 +83,31 @@ const createNewWorkout = (newWorkout) => {
 };
 
 const updateOneWorkout = (workoutId, changes) => {
-  const index = DB.workouts.findIndex((item) => item.id === workoutId);
-  if (index === -1) {
-    return null;
+  try {
+    const index = DB.workouts.findIndex((item) => item.id === workoutId);
+    if (index === -1) {
+      throw {
+        status: 400,
+        message: `Cannot find workout with id ${workoutId}`,
+      };
+    }
+  
+    const updatedWorkout = {
+      ...DB.workouts[index],
+      ...changes,
+      updatedAt: new Date().toLocaleString('en-US', {timeZone: 'UTC'}),
+    };
+  
+    DB.workouts[index] = updatedWorkout;
+  
+    saveToDatabase(DB);
+    return updatedWorkout;
+  } catch (error) {
+    throw {
+      status: error?.status || 500,
+      message: error?.message || error,
+    };
   }
-
-  const updatedWorkout = {
-    ...DB.workouts[index],
-    ...changes,
-  };
-
-  DB.workouts[index] = updatedWorkout;
-
-  saveToDatabase(DB);
-  return updatedWorkout;
 };
 
 const deleteOneWorkout = (workoutId) => {

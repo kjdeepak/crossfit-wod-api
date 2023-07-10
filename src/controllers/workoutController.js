@@ -5,7 +5,7 @@ const getAllWorkouts = (req, res) => {
     const getAllWorkouts = workoutService.getAllWorkouts();
     res.send({ status: "OK", data: getAllWorkouts });
   } catch (error) {
-    res.status(error?.status || 500).send({status: 'FAILED', data: error?.message || error});
+    res.status(error?.status || 500).send({ status: "FAILED", data: error?.message || error });
   }
 };
 
@@ -15,13 +15,13 @@ const getOneWorkout = (req, res) => {
       params: { workoutId },
     } = req;
     if (!workoutId) {
-      res.status(400).send({status: 'FAILED', data: 'Invalid workoutId'});
+      res.status(400).send({ status: "FAILED", data: "Missing workoutId" });
       return;
     }
     const retrievedWorkout = workoutService.getOneWorkout(workoutId);
     res.status(200).send({ status: "OK", data: retrievedWorkout });
   } catch (error) {
-    res.status(error?.status || 500).send({status: 'FAILED', data: error?.message || error});
+    res.status(error?.status || 500).send({ status: "FAILED", data: error?.message || error });
   }
 };
 
@@ -51,15 +51,20 @@ const createNewWorkout = (req, res) => {
 };
 
 const updateOneWorkout = (req, res) => {
-  const {
-    params: { workoutId },
-    body,
-  } = req;
-  if (!workoutId) {
-    return;
+  try {
+    const {
+      params: { workoutId },
+      body,
+    } = req;
+    if (!workoutId) {
+      res.status(400).send({ status: "FAILED", data: "Missing workoutId" });
+      return;
+    }
+    const updatedWorkout = workoutService.updateOneWorkout(workoutId, body);
+    res.status(200).send({ status: "OK", data: updatedWorkout });
+  } catch (error) {
+    res.status(error?.status || 500).send({ status: "FAILED", data: error?.message || error });
   }
-  const updatedWorkout = workoutService.updateOneWorkout(workoutId, body);
-  res.status(200).send({ status: "OK", data: updatedWorkout });
 };
 
 const deleteOneWorkout = (req, res) => {
