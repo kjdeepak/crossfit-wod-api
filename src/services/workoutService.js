@@ -12,8 +12,12 @@ const getAllWorkouts = () => {
 };
 
 const getOneWorkout = (workoutId) => {
-  const retrievedWorkout = Workout.getOneWorkout(workoutId);
-  return retrievedWorkout;
+  try {
+    const retrievedWorkout = Workout.getOneWorkout(workoutId);
+    return retrievedWorkout; 
+  } catch (error) {
+    throw(error);
+  }
 };
 
 const createNewWorkout = (newWorkout) => {

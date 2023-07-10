@@ -10,14 +10,19 @@ const getAllWorkouts = (req, res) => {
 };
 
 const getOneWorkout = (req, res) => {
-  const {
-    params: { workoutId },
-  } = req;
-  if (!workoutId) {
-    return;
+  try {
+    const {
+      params: { workoutId },
+    } = req;
+    if (!workoutId) {
+      res.status(400).send({status: 'FAILED', data: 'Invalid workoutId'});
+      return;
+    }
+    const retrievedWorkout = workoutService.getOneWorkout(workoutId);
+    res.status(200).send({ status: "OK", data: retrievedWorkout });
+  } catch (error) {
+    res.status(error?.status || 500).send({status: 'FAILED', data: error?.message || error});
   }
-  const retrievedWorkout = workoutService.getOneWorkout(workoutId);
-  res.status(200).send({ status: "OK", data: retrievedWorkout });
 };
 
 const createNewWorkout = (req, res) => {

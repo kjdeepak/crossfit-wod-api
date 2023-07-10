@@ -51,7 +51,14 @@ const getAllWorkouts = () => {
 };
 
 const getOneWorkout = (workoutId) => {
+  try {
   return DB.workouts.find((item) => item.id === workoutId) || null;
+  } catch (error) {
+    throw {
+      status: 500,
+      message: error?.message || error,
+    }
+  }
 };
 
 const createNewWorkout = (newWorkout) => {
